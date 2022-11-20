@@ -1,20 +1,18 @@
-import logo from "./logo.svg";
-import './index.css'
+import React from 'react';
+import {Routes, Route} from 'react-router-dom';
+import Mainpage from './components/Mainpage/main';
+import Aboutmain from './components/Aboutpage/aboutmain';
+import Searchmain from './components/Searchpage/searchmain';
 
 const App = () => {
   return (
-<div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" 
-             alt="logo" />
-          
-        <form action="../../post" method="post" 
-              className="form">
-          <button type="submit">Connected?</button>
-        </form>
-      </header>
-    </div>
-
+    <>
+      <Routes>
+        <Route path="/" element={<Mainpage/>}/>
+        <Route path="/about" element={<Aboutmain/>}/>
+        <Route path="/search" element={<Searchmain/>}/>
+      </Routes>
+    </>
   );
 }
 
