@@ -1,9 +1,15 @@
-
+import React from 'react';
+import {Routes, Route} from 'react-router-dom';
+import Mainpage from './components/Mainpage/main';
+import Aboutmain from './components/Aboutpage/aboutmain';
 const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+      <Routes>
+        <Route path="/" element={<Mainpage/>}/>
+        <Route path="/about" element={<Aboutmain/>}/>
+      </Routes>
+    </>
   );
 }
 
