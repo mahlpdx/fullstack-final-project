@@ -1,9 +1,8 @@
 import React from 'react';
-
-// import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const Home = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div name = 'home' className='w-full h-screen'> 
@@ -14,7 +13,7 @@ const Home = () => {
               <div className='text-8xl font-geomatik'>Spotify Analytics </div>
               <div className='text-lg font-geomatik text-indigo-400'>Get your favorite artist details in seconds</div>
               <div>
-                <button className='bg-indigo-400 px-4 py-2 text-zinc-200 font-geomatik
+                <button onClick={() => navigate('/search')} className='bg-indigo-400 px-4 py-2 text-zinc-200 font-geomatik
                  rounded-3xl hover:bg-transparent hover:text-indigo-400 border border-4 border-indigo-400
                   transition duration-300 ease-in-out'>Search Now</button>
               </div>
