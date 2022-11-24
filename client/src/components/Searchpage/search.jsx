@@ -44,7 +44,6 @@ const Search = () => {
             }
 
         }
-
     
     };
   
@@ -90,12 +89,12 @@ const Search = () => {
                       <div className='bg-zinc-900/20 h-full w-full rounded-3xl p-12'>
                         <div className={!name ? 'hidden':'flex flex-col items-start gap-4'} >
                             <div className='font-geomatik text-zinc-100 text-xl'> Search by Artist Name</div>
-                            <format method="POST" action="/submit" className='flex flex-row gap-7'>
+                            <form method="POST" action="/search-artist" className='flex flex-row gap-7'>
                                 <input required type='text' id="name" name="name" placeholder='artist`s name'
                                 className='p-3 rounded-xl font-geomatik bg-zinc-200 text-zinc-600'></input>
                                 <button type='submit' value='search' id="submit" name="submit"
                                 className='p-3 rounded-xl font-geomatik bg-blue-600 text-white px-7 hover:bg-blue-800'>search</button>
-                            </format>
+                            </form>
                         </div>
                         <div className={!genre ? 'hidden':'flex flex-col items-start gap-4'} >
                             <div className='font-geomatik text-zinc-100 text-xl'> Search by Genre</div>
