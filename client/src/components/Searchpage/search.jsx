@@ -4,14 +4,20 @@ import React, {useState} from 'react';
 
 
 const Search = () => {
+
+    // set search by artist name panal 
     const [name, setName] = useState(false);
     const handleClick1 = () => setName(!name);
 
+    // set search by top artists based on genre panal
     const [genre, setGenre] = useState(false);
     const handleClick2 = () => setGenre(!genre);
-   
+
+    // set search by top artist based on year panal
     const [hot, setHot] = useState(false);
     const handleClick3 = () => setHot(!hot);
+    
+    // set data for search by artist name panal 
     const [namea, setNamea] = useState('');
     const [view, setView] = useState(false);
     const [pic, setPic] = useState('');
@@ -20,6 +26,7 @@ const Search = () => {
     const [tracks, setTracks] = useState([]);
     const [genres, setGenres] = useState([]);
     const [pop, setPop] = useState([]);
+    
     const handleClick = (id) => (reason) => {
         console.log(id);
         if(id === 1){
@@ -54,6 +61,7 @@ const Search = () => {
         }
     
     };
+
     const reset = ()  => {
         setNamea('');
         setPic('');
@@ -63,6 +71,7 @@ const Search = () => {
         setGenres([]);
         setView(false);
     }
+    
     const getArtist = async (name) => {
         try {
           const getuser = name ;

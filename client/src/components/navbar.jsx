@@ -10,9 +10,21 @@ import {
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav(!nav);
+  const [colornav, setColornav] = useState(false);
+  const changeColor = () => {
+    if( window.scrollY >= 80 ) {
+      setColornav(true);
+    } else {
+      setColornav(false);
+    }
+  };
+  window.addEventListener('scroll', changeColor);
+
   const navigate = useNavigate();
   return (
-    <div className='fixed w-full h-[80px] flex flex-col  py-4 justify-between md:items-center sm:items-end px-4 text-[#df2027] text-xl'>
+    <div>
+    <div className={colornav ? 'fixed w-full h-[80px] flex flex-col bg-zinc-900 py-4 justify-between md:items-center sm:items-end px-4 text-[#df2027] text-xl':
+    'fixed w-full h-[80px] flex flex-col  py-4 justify-between md:items-center sm:items-end px-4 text-[#df2027] text-xl'}>
         <ul className='hidden md:flex gap-4 mr-6 font-bold mt-4  '>
         <li  >
         <button onClick={() => navigate('/')} className='hover:text-indigo-400 font-geomatik transition  py-2 px-10 duration-300 ease-in-out'>
@@ -53,6 +65,8 @@ const Navbar = () => {
         </li>
       </ul>
     </div>
+    </div>
+
   );
 };
 
