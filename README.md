@@ -7,12 +7,12 @@ It helps the users to search for their favorite artist and get the results in se
 
 # Environment setup
 
-To run the node server, a `.env` file must be setup in `server/`. This file should contain the following variables:<br>
+To run the node server, a `.env` file must be setup in your root directory. This file should contain the following variables:<br>
 1. `CLIENT_ID` - Spotify developer application client ID
 2. `CLIENT_SECRET`- Spotify developer application client ID 
 3. `DB_USER` - MySQL user
 4. `DB_PASS`- MySQL password
 <br>
 
-To start the node server in dev, run `npm run dev` while in the `server/` directory.<br>
-To start the node server in prod, run `npm run start` while in the `server/` directory.
+To run the server with the client on the same time, install concurrently in your root directory by running `npm i concurrently` and then run `npm run dev` while in the root directory.<br>
+

@@ -1,0 +1,32 @@
+{
+  "name": "fullstack-final-project",
+  "version": "1.0.0",
+  "description": "# Spotify Analytics",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon --quiet server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahlpdx/fullstack-final-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahlpdx/fullstack-final-project/issues"
+  },
+  "homepage": "https://github.com/mahlpdx/fullstack-final-project#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.3.0",
+    "request": "^2.88.2",
+    "axios": "^1.1.3"
+  }
+}
