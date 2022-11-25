@@ -51,7 +51,7 @@ const Artistname = () => {
     return (
         
             <div>
-            <div className='flex flex-col items-start gap-1 h-full'>
+            <div className=' h-full '>
                             <div className='font-geomatik text-[#df2027] '> Search by Artist Name</div>
                             <div className='flex flex-row '>
                                 <input required type='text' id="name" name="name" placeholder='artist`s name'
