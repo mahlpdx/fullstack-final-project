@@ -18,6 +18,8 @@ const Search = () => {
     const [artist, setArtist] = useState('');
     const [followers, setFollowers] = useState('');
     const [tracks, setTracks] = useState([]);
+    const [genres, setGenres] = useState([]);
+    const [pop, setPop] = useState([]);
     const handleClick = (id) => (reason) => {
         console.log(id);
         if(id === 1){
@@ -57,6 +59,8 @@ const Search = () => {
         setPic('');
         setArtist('');
         setFollowers('');
+        setTracks([]);
+        setGenres([]);
     }
     const getArtist = async (name) => {
         try {
@@ -69,7 +73,9 @@ const Search = () => {
           setPic(jsonData.images[0].url);
           setArtist(jsonData.name);
           setFollowers(jsonData.followers.total);
-          setTracks(jsonData.tracks)
+          setTracks(jsonData.tracks);
+          setGenres(jsonData.genres);
+          setPop(jsonData.popularity)
           console.log(pic);
         } catch (error) {
           console.error(error.message);
@@ -117,30 +123,52 @@ const Search = () => {
 
                       </div>
                       <div className=' w-full rounded-3xl'>
-                        <div className={!name ? 'hidden':'flex flex-col items-start gap-4 h-full'} >
-                            <div className='font-geomatik text-[#df2027] text-xl'> Search by Artist Name</div>
-                            <div className='flex flex-row gap-8'>
+                        <div className={!name ? 'hidden':'flex flex-col items-start gap-1 h-full'} >
+                            <div className='font-geomatik text-[#df2027] '> Search by Artist Name</div>
+                            <div className='flex flex-row '>
                                 <input required type='text' id="name" name="name" placeholder='artist`s name'
-                                className='p-3 rounded-2xl font-geomatik bg-zinc-900/70 text-zinc-200' onChange={(ev) => setNamea(ev.target.value)} />
-                                <button onClick={() => getArtist(namea)} className='p-3 rounded-2xl font-geomatik bg-blue-600 text-white px-7 hover:bg-blue-800'>search</button>
-                                <button onClick={() => reset()} className='p-3 rounded-2xl font-geomatik bg-[#df2027] text-white px-7 hover:bg-red-800'>Reset search</button>
+                                className='p-3  font-geomatik bg-white text-zinc-900' onChange={(ev) => setNamea(ev.target.value)} />
+                                <button onClick={() => getArtist(namea)} className='p-3  font-geomatik bg-black
+                                 text-white px-7 hover:bg-blue-800'>search</button>
+                                <button onClick={() => reset()} className='p-3  font-geomatik bg-[#df2027] text-white
+                                 px-7 hover:bg-red-800'>Reset search</button>
                             </div>
-                            <div className='bg-cover bg-brightness-40 w-full h-full rounded-3xl 'style={{backgroundImage: `url(${pic})`}} >
-                                <div className='backdrop-blur-sm flex flex-row items-center mb-9 rounded-3xl bg-zinc-900/80 w-full h-full p-9'>
+                            <div className='bg-cover bg-brightness-40 w-full h-full rounded-3xl mt-3 'style={{backgroundImage: `url(${pic})`}} >
+                                <div className='backdrop-blur-sm flex flex-col items-start mb-9 rounded-3xl bg-zinc-900/50 w-full h-full p-9'>
+                                    <div className='flex flex-row items-center mb-9 rounded-3xl bg-zinc-900/80 w-full h-full p-9'>
+                                        <img src={pic} className=' w-[15rem] h-[15rem] rounded-xl mr-12'/>
+                                        <div className='h-full w-full flex flex-row items-start'>
+                                            <div className='flex flex-col gap-1 p-8'>
+                                                <div className='flex flex-row items-center gap-6 font-geomatik text-zinc-200'>
+                                                    <div className='text-lg text-zinc-200/70'>Artist Name : </div>
+                                                    <div className='text-lg'>{artist}</div>
+                                                </div>
+                                                <div className='flex flex-row items-center gap-6 font-geomatik text-zinc-200'>
+                                                    <div className='text-lg text-zinc-200/70'># of followers : </div>
+                                                    <div className='text-lg'>{followers}</div>
+                                                </div>
+                                                
+                                                <div className='flex flex-row items-center gap-6 font-geomatik text-zinc-200'>
+                                                    <div className='text-lg text-zinc-200/70'>Genres: </div>
+                                                    <div className='text-lg flex flex-row gap-3'>
+                                                        {genres.map((genress) => (
+                                                            <div>{genress},</div>
+                                                        ),
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className='flex flex-row items-center gap-6 font-geomatik text-zinc-200'>
+                                                    <div className='text-lg text-zinc-200/70'>Popularity : </div>
+                                                    <div className='text-lg'>{pop}</div>
+                                                </div>
 
-                                    <img src={pic} className=' w-[40rem] h-[40rem] rounded-xl mr-12'/>
-                                    <div className='h-full w-full flex flex-row items-start'>
-                                        <div className='flex flex-col gap-4 p-4'>
-                                            <div className='flex flex-row items-center gap-12 font-geomatik text-zinc-200'>
-                                                <div className='text-xl'>Artist Name : </div>
-                                                <div className='text-lg'>{artist}</div>
                                             </div>
-                                            <div className='flex flex-row items-center gap-12 font-geomatik text-zinc-200'>
-                                                <div className='text-xl'># of followers : </div>
-                                                <div className='text-lg'>{followers}</div>
-                                            </div>
+
                                             
-                                            <div className='h-4'>
+                                        </div>
+                                    </div>
+
+                                    <div className='h-full'>
                                                 <div className='text-xl font-geomatik text-zinc-200 mb-3'>Top Tracks: </div>
                                                 <ol className='h-[30rem] overflow-y-scroll scroll-smooth bg-zinc-900/50 rounded-3xl p-6'>
                                                 {tracks.map((track) => (
@@ -161,13 +189,7 @@ const Search = () => {
                                                         ),
                                                         )}
                                                 </ol>
-                                            </div>
-
-                                        </div>
-
-                                        
                                     </div>
-                                    
                                 </div>
                                 
                             </div>
