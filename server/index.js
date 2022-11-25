@@ -1,8 +1,6 @@
-
 const express = require("express");
-const PORT = process.env.PORT || 8000;
 const app = express();
-const artistRouter = require("./routes/artist");
+const artistRouter = require("./api/artist");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
