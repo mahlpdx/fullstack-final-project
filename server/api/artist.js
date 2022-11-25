@@ -17,8 +17,8 @@ artistRouter.get('/', async (req,res) => {
         console.log('error');
     } else {
       const name = req.query.name ;
-      const client_id = '4051137e244045ff8ae3d95799ecd3f5' ;
-      const client_secret = 'b5177fb4b1b14a72b66d371090d5c1a8' ;
+      const client_id = process.env.CLIENT_ID ;
+      const client_secret = process.env.CLIENT_SECRET ;
     
       // Authorization
       let authOptions = {
