@@ -139,14 +139,21 @@ const Search = () => {
                                                 <div className='text-xl'># of followers : </div>
                                                 <div className='text-lg'>{followers}</div>
                                             </div>
+                                            
                                             <div className='h-4'>
-                                                <ol className='h-[30rem] overflow-y-scroll  scroll-smooth bg-zinc-900/50 rounded-3xl '>
+                                                <div className='text-xl font-geomatik text-zinc-200 mb-3'>Top Tracks: </div>
+                                                <ol className='h-[30rem] overflow-y-scroll scroll-smooth bg-zinc-900/50 rounded-3xl p-6'>
                                                 {tracks.map((track) => (
                                                             <>
-                                                            <li className="font-geomatik text-zinc-200 px-6 py-3">
-                                                                <div className='flex flex-row gap-3'>
-                                                                    <img src={track.album.images[0].url} className='w-20'/>
-                                                                    <div>{track.name}</div>
+                                                            <li className="font-geomatik text-zinc-200 bg-cine-200 mb-3 rounded-2xl bg-cover" style={{backgroundImage: `url(${track.album.images[0].url})`}} >
+                                                                <div className='backdrop-blur-sm bg-zinc-900/80 rounded-2xl w-full p-4 h-full flex flex-row gap-3'>
+                                                                    <img src={track.album.images[0].url} className='w-20 rounded-xl'/>
+                                                                    <div className='flex flex-col'>
+                                                                        <div className='text-xl'>{track.name}</div>
+                                                                        <div className='text-sm text-zinc-200/60'>{track.album.name}</div>
+                                                                        <div className='text-sm text-zinc-200/60'>{track.album.release_date}</div>
+                                                                    </div>
+                                                                    
                                                                 </div>
                                                                 
                                                             </li>
