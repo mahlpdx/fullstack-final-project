@@ -14,5 +14,5 @@ To run the node server, a `.env` file must be setup in your root directory. This
 4. `DB_PASS`- MySQL password
 <br>
 
-To start the node server in dev, run `npm run dev` while in the `server/` directory.<br>
-To start the node server in prod, run `npm run start` while in the `server/` directory.
+To run the server with the client on the same time, install concurrently in your root directory by running `npm i concurrently` and then run `npm run dev` while in the root directory.<br>
+
