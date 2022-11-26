@@ -14,7 +14,7 @@ const Artistname = () => {
     const [tracks, setTracks] = useState([]);
     const [genres, setGenres] = useState([]);
     const [pop, setPop] = useState([]);
-    
+    const [show, setShow] = useState(false);
 
     const reset = ()  => {
         setNamea('');
@@ -24,6 +24,7 @@ const Artistname = () => {
         setTracks([]);
         setGenres([]);
         setView(false);
+        setShow(false);
     }
 
     const getArtist = async (name) => {
@@ -43,7 +44,7 @@ const Artistname = () => {
           setGenres(jsonData.genres);
           setPop(jsonData.popularity);
           setView(true);
-          
+          setShow(true);
         } catch (error) {
           console.error(error.message);
         }
@@ -51,15 +52,23 @@ const Artistname = () => {
     return (
         
             <div>
-            <div className=' h-full '>
-                            <div className='font-geomatik text-[#df2027] '> Search by Artist Name</div>
-                            <div className='flex flex-row '>
-                                <input required type='text' id="name" name="name" placeholder='artist`s name'
-                                className='p-3  font-geomatik bg-white text-zinc-900' value={namea} onChange={(ev) => setNamea(ev.target.value)} />
-                                <button onClick={() => getArtist(namea)} className='p-3  font-geomatik bg-black
-                                 text-white px-7 hover:bg-blue-800'>search</button>
-                                <button onClick={() => reset()} className='p-3  font-geomatik bg-[#df2027] text-white
-                                 px-7 hover:bg-red-800'>Reset search</button>
+            <div className='h-full w-full'>
+                            <div className='flex flex-row w-full bg-zinc-900 p-3 rounded-full justify-between'>
+                                <div className='flex flex-row text-zinc-200 ml-3 items-center gap-6'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                    <input required type='text' id="name" name="name" placeholder='Type artist`s name'
+                                    className='p-1 font-geomatik bg-transparent placeholder-zinc-100/70  text-zinc-100 border-none outline-none'
+                                    value={namea} onChange={(ev) => setNamea(ev.target.value)} />
+                                </div>
+
+                                <div className='flex flex-row gap-4'>
+                                    <button onClick={() => getArtist(namea)} className=' font-geomatik bg-white
+                                    text-zinc-900 font-bold px-6 hover:bg-indigo-600 hover:text-zinc-200 rounded-full'>GO</button>
+                                    <button onClick={() => reset()} className={!show ? 'hidden':'p-1 rounded-full font-geomatik bg-transparent border-2 border-red-600 text-red-600 px-4 hover:bg-red-600 hover:text-white'}>Reset</button>
+                                </div>
+
                             </div>
                             <div className={!view ? 'hidden':'bg-cover bg-brightness-40 w-full h-full rounded-3xl mt-3 '}style={{backgroundImage: `url(${pic})`}} >
                                 <div className='backdrop-blur-sm flex flex-col items-start mb-9 rounded-3xl bg-zinc-900/50 w-full h-full p-9'>
@@ -109,9 +118,7 @@ const Artistname = () => {
                                                                         <div className='text-sm text-zinc-200/60'>{track.album.name}</div>
                                                                         <div className='text-sm text-zinc-200/60'>{track.album.release_date}</div>
                                                                     </div>
-                                                                    
                                                                 </div>
-                                                                
                                                             </li>
                                                             </>
                                                         ),
