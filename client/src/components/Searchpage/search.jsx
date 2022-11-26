@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
 // import {useNavigate} from 'react-router-dom';
-import Artistname from './panels/artistname';
+import Artistname from './searchpanel';
 
 const Search = () => {
 

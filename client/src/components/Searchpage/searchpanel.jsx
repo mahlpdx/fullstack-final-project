@@ -1,12 +1,75 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
-
+import Track from './panels/tracks';
+import Albums from './panels/albums';
+import Genres from './panels/genres';
 
 const Artistname = () => {
+    // set search by artist name panal 
+    const [ttrack, setTtrack] = useState(true);
+    const handleClick1 = () => setTtrack(!ttrack);
 
+    // set search by top artists based on genre panal
+    const [talbums, setTalbums] = useState(false);
+    const handleClick2 = () => setTalbums(!talbums);
+
+    // set search by top artist based on year panal
+    const [mpop, setMpop] = useState(false);
+    const handleClick3 = () => setMpop(!mpop);
+    
+    const [m1, setM1] = useState(true);
+    const [m2, setM2] = useState(false);
+    const [m3, setM3] = useState(false);
+    // set data for search by artist name panal 
+
+    
+    const handleClick = (id) => (reason) => {
+        console.log(id);
+        if(id === 1){
+            handleClick1();
+            setM1(true);
+            if(talbums === true) {
+                handleClick2();
+                setM2(false);
+            }
+            if(mpop === true) {
+                handleClick3();
+                setM3(false);
+            }
+
+        }
+        else if(id === 2){
+            handleClick2();
+            setM2(true);
+            if(ttrack === true) {
+                handleClick1();
+                setM1(false);
+            }
+            if(mpop === true) {
+                handleClick3();
+                setM3(false);
+            }
+
+        }
+        else if(id === 3){
+            handleClick3();
+            setM3(true);
+            if(ttrack === true) {
+                handleClick1();
+                setM1(false);
+            }
+            if(talbums === true) {
+                handleClick2();
+                setM2(false);
+            }
+
+        }
+    
+    };
     
     // set data for search by artist name panal 
     const [namea, setNamea] = useState('');
+    const [id, setID] = useState('');
     const [view, setView] = useState(false);
     const [pic, setPic] = useState('');
     const [artist, setArtist] = useState('');
@@ -36,7 +99,7 @@ const Artistname = () => {
           
           const jsonData = await response.json();
           console.log(jsonData);
-          
+          setID(jsonData.name);
           setPic(jsonData.images[0].url);
           setArtist(jsonData.name);
           setFollowers(jsonData.followers.total);
@@ -53,7 +116,7 @@ const Artistname = () => {
         
             <div>
             <div className='h-full w-full'>
-                            <div className='flex flex-row w-full bg-zinc-900 p-3 rounded-full justify-between'>
+                            <div className='flex flex-row w-full bg-zinc-900/60 p-3 rounded-full justify-between'>
                                 <div className='flex flex-row text-zinc-200 ml-3 items-center gap-6'>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -64,9 +127,9 @@ const Artistname = () => {
                                 </div>
 
                                 <div className='flex flex-row gap-4'>
-                                    <button onClick={() => getArtist(namea)} className=' font-geomatik bg-white
-                                    text-zinc-900 font-bold px-6 hover:bg-indigo-600 hover:text-zinc-200 rounded-full'>GO</button>
-                                    <button onClick={() => reset()} className={!show ? 'hidden':'p-1 rounded-full font-geomatik bg-transparent border-2 border-red-600 text-red-600 px-4 hover:bg-red-600 hover:text-white'}>Reset</button>
+                                    <button onClick={() => getArtist(namea)} className='transition duration-300 ease-in-out font-geomatik bg-white
+                                    text-zinc-900 font-bold px-4 hover:bg-indigo-600 hover:text-zinc-200 rounded-full'>GO</button>
+                                    <button onClick={() => reset()} className={!show ? 'hidden':'transition duration-300 ease-in-out p-1 rounded-full font-geomatik bg-transparent border-2 border-red-400 text-red-400 px-4 hover:bg-red-400 hover:text-white'}>Reset</button>
                                 </div>
 
                             </div>
@@ -86,15 +149,6 @@ const Artistname = () => {
                                                 </div>
                                                 
                                                 <div className='flex flex-row items-center gap-6 font-geomatik text-zinc-200'>
-                                                    <div className='text-lg text-zinc-200/70'>Genres: </div>
-                                                    <div className='text-lg flex flex-row gap-3'>
-                                                        {genres.map((genress) => (
-                                                            <div>{genress},</div>
-                                                        ),
-                                                        )}
-                                                    </div>
-                                                </div>
-                                                <div className='flex flex-row items-center gap-6 font-geomatik text-zinc-200'>
                                                     <div className='text-lg text-zinc-200/70'>Popularity : </div>
                                                     <div className='text-lg'>{pop}</div>
                                                 </div>
@@ -104,26 +158,25 @@ const Artistname = () => {
                                             
                                         </div>
                                     </div>
+                                    <div className='w-full flex flex-col items-center mb-9'>
+                                        <div className='flex flex-row items-center bg-zinc-900/80 px-4 font-geomatik py-3  rounded-full gap-6'>
+                                                <button onClick={handleClick(1)} className={!m1 ? 'px-5 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out':
+                                                'px-5 py-1 bg-indigo-600 text-indigo-200 rounded-3xl border-2 border-indigo-600'}>Top Tracks</button>
+                                                <button onClick={handleClick(2)} className={!m2 ? 'px-5 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400 transition duration-300 ease-in-out':
+                                                'px-5 py-1 bg-indigo-600 text-indigo-200 rounded-3xl border-2 border-indigo-600'}>Top Albums</button>
+                                                <button onClick={handleClick(3)} className={!m3 ? 'px-5 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out':
+                                                'px-5 py-1 bg-indigo-600 text-indigo-200 rounded-3xl border-2 border-indigo-600'}>Artist`s Genres</button>
+                                        </div>
+                                    </div>
 
-                                    <div className='h-full'>
-                                                <div className='text-xl font-geomatik text-zinc-200 mb-3'>Top Tracks: </div>
-                                                <ol className='h-[30rem] overflow-y-scroll scroll-smooth bg-zinc-900/50 rounded-3xl p-6'>
-                                                {tracks.map((track) => (
-                                                            <>
-                                                            <li className="font-geomatik text-zinc-200 bg-cine-200 mb-3 rounded-2xl bg-cover" style={{backgroundImage: `url(${track.album.images[0].url})`}} >
-                                                                <div className='backdrop-blur-sm bg-zinc-900/80 rounded-2xl w-full p-4 h-full flex flex-row gap-3'>
-                                                                    <img src={track.album.images[0].url} className='w-20 rounded-xl'/>
-                                                                    <div className='flex flex-col'>
-                                                                        <div className='text-xl'>{track.name}</div>
-                                                                        <div className='text-sm text-zinc-200/60'>{track.album.name}</div>
-                                                                        <div className='text-sm text-zinc-200/60'>{track.album.release_date}</div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            </>
-                                                        ),
-                                                        )}
-                                                </ol>
+                                    <div className={!ttrack ? 'hidden':'h-full '}>
+                                        <Track tracks = {tracks} id={id}/>
+                                    </div>
+                                    <div className={!talbums ? 'hidden':'h-full '}>
+                                        <Albums id={id} />
+                                    </div>
+                                    <div className={!mpop ? 'hidden':'h-full w-full '}>
+                                        <Genres genres={genres}/>
                                     </div>
                                 </div>
                                 
