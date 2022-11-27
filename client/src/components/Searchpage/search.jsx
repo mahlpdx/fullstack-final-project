@@ -1,59 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
 // import {useNavigate} from 'react-router-dom';
-import Artistname from './artistname';
+import Artistname from './searchpanel';
 
 const Search = () => {
 
-    // set search by artist name panal 
-    const [name, setName] = useState(false);
-    const handleClick1 = () => setName(!name);
 
-    // set search by top artists based on genre panal
-    const [genre, setGenre] = useState(false);
-    const handleClick2 = () => setGenre(!genre);
-
-    // set search by top artist based on year panal
-    const [hot, setHot] = useState(false);
-    const handleClick3 = () => setHot(!hot);
     
     // set data for search by artist name panal 
-
-    
-    const handleClick = (id) => (reason) => {
-        console.log(id);
-        if(id === 1){
-            handleClick1();
-            if(genre === true) {
-                handleClick2();
-            }
-            if(hot === true) {
-                handleClick3();
-            }
-
-        }
-        else if(id === 2){
-            handleClick2();
-            if(name === true) {
-                handleClick1();
-            }
-            if(hot === true) {
-                handleClick3();
-            }
-
-        }
-        else if(id === 3){
-            handleClick3();
-            if(name === true) {
-                handleClick1();
-            }
-            if(genre === true) {
-                handleClick2();
-            }
-
-        }
-    
-    };
 
     return (
     <div name = 'Search'   className='w-full h-screen'> 
@@ -63,50 +17,12 @@ const Search = () => {
             <div className='h-screen w-full flex flex-col items-center px-40 py-80 gap-9'>
                 <div className='flex flex-col items-center gap-12 h-full w-full '>
                   <div className='text-5xl font-geomatik text-[#df2027]'>
-                      Search for an Artist
+                      Search Platform
                   </div>
                   <div className='flex flex-col items-center gap-12 h-full w-full'>
-                      <div className='bg-zinc-900/40  w-full p-6 rounded-3xl flex flex-col items-center'>
-                        <div className='flex flex-row items-center mb-3 gap-2 text-zinc-100/60'>
-                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l2.879-2.879m0
-                                    0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <div className='font-geomatik  text-xl '>Search by </div>
-                        </div>
-                        <div className='flex flex-row items-center h-full'>
-                            
-                            <div className='flex flex-row items-center gap-14'>
-
-
-                                <button onClick={handleClick(1)} className='text-zinc-100 mb-4 flex flex-col items-center hover:text-indigo-200 transition duration-300 ease-in-out'>
-                                    <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937
-                                    13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <div className='font-geomatik text-lg font-bold'>Name</div>
-                                </button>
-                                <button onClick={handleClick(2)} className='text-zinc-100 mb-4  flex flex-col items-center hover:text-indigo-200 transition duration-300 ease-in-out'>
-                                    <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343
-                                2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
-                                    <div className='font-geomatik text-lg font-bold'>Genre</div>
-                                </button>
-                                <button onClick={handleClick(3)} className='text-zinc-100 mb-4 flex flex-col items-center hover:text-indigo-200 transition duration-300 ease-in-out'>
-                                    <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9
-                                10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></svg>
-                                    <div className='font-geomatik text-lg font-bold'>Top</div>
-                                </button>
-                            </div>
-                        </div>
-
-                      </div>
                       <div className=' w-full rounded-3xl'>
-                        <div className={!name ? 'hidden':'h-full'} >
+                        <div className='h-full'>
                             <Artistname/>
-                        </div>
-                        <div className={!genre ? 'hidden':'flex flex-col items-start gap-4'} >
-                            <div className='font-geomatik text-zinc-100 text-xl'> Search by Genre</div>
-
-                        </div>
-                        <div className={!hot ? 'hidden':'flex flex-col items-start gap-4'} >
-                            <div className='font-geomatik text-zinc-100 text-xl'> Top Artists</div>
-
                         </div>
 
                       </div>
