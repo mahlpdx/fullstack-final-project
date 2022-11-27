@@ -1,18 +1,16 @@
 const express = require("express");
-const artistRouter = express.Router();
+const topTracksRouter = express.Router();
 const dotenv = require("dotenv").config();
 const parser = require("body-parser");
 const request = require("request");
 
-let artist = [""];
-
-artistRouter.get("/", async (req, res) => {
+topTracksRouter.get("/", async (req, res) => {
   try {
-    // An artist name must be passed in the query to return a result
+    // An artist ID must be passed in the query to return a result
     if (req.query.name === "") {
       console.log("error");
     } else {
-      const name = req.query.name;
+      const id = req.query.id;
       const client_id = process.env.CLIENT_ID;
       const client_secret = process.env.CLIENT_SECRET;
 
@@ -29,15 +27,16 @@ artistRouter.get("/", async (req, res) => {
         },
         json: true,
       };
+
       // Initial POST request to get token
       request.post(authOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
           // Use the access token to access the Spotify Web API
           const token = body.access_token;
 
-          // GET request to get artist's metadata
+          // GET request to receive top tracks for the artist
           let options = {
-            url: `https://api.spotify.com/v1/search?type=artist&q=${name}&limit=1`,
+            url: `https://api.spotify.com/v1/artists/${id}/top-tracks?market=US`,
             headers: {
               Authorization: "Bearer " + token,
             },
@@ -45,11 +44,8 @@ artistRouter.get("/", async (req, res) => {
           };
 
           request.get(options, (error, response, body) => {
-            artist = body.artists.items[0];
-
-            let ob = Object.assign(artist);
+            let ob = Object.assign(body);
             res.send(ob);
-
           });
         } else {
           console.log("failed");
@@ -61,4 +57,4 @@ artistRouter.get("/", async (req, res) => {
   }
 });
 
-module.exports = artistRouter;
+module.exports = topTracksRouter;
