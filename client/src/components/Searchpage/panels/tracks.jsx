@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-function Track ({tracks}, id) {
+function Track ({tracks}, {audio_features},id) {
     return (
       <div>
         <div className='flex flex-row items-center gap-4'>
@@ -30,7 +30,14 @@ function Track ({tracks}, id) {
             <div>
                 <div className='text-xl font-geomatik text-zinc-200/70 mb-3 ml-4 '>Most popular songs: </div>
                 <div className='h-[30rem]  bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
-                
+                {/*{audio_features.map((feature) => (
+                                <>
+                                <div className='text-xl'>{feature.id}</div>
+                                <div className='text-sm text-zinc-200/60'>{feature.loudness}</div>
+                                <div className='text-sm text-zinc-200/60'>{feature.danceability}</div>
+                                </>
+                                ), 
+                )}*/}
                 </div>
 
 

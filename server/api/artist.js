@@ -11,7 +11,7 @@ const mysql = require("mysql");
 let artist = [''];
 let tracks = [''];
 let feature_ids = [];
-let track_features = {};
+let audio_features = [''];
 
 artistRouter.get('/', async (req,res) => {
   try {
@@ -69,8 +69,8 @@ artistRouter.get('/', async (req,res) => {
               feature_ids.join(',');
               //End of copy.
               console.log(feature_ids);
-              let ob = Object.assign(artist, tracks);
-              res.send(ob);
+              //let ob = Object.assign(artist, tracks);
+              //res.send(ob);
               
               // GET request for top track audio features
               let options = {
@@ -81,7 +81,10 @@ artistRouter.get('/', async (req,res) => {
               json: true,};
               
               request.get(options, (error, response, body) => {
-                console.log(body);
+                audio_features = body;
+                let ob = Object.assign(artist,tracks,audio_features);
+                res.send(ob)
+                console.log(ob);
               });
             });
           });

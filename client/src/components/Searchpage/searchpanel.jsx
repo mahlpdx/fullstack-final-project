@@ -78,6 +78,7 @@ const Artistname = () => {
     const [genres, setGenres] = useState([]);
     const [pop, setPop] = useState([]);
     const [show, setShow] = useState(false);
+    const [audio_features, setAudio] = useState([]);
 
     const reset = ()  => {
         setNamea('');
@@ -88,6 +89,7 @@ const Artistname = () => {
         setGenres([]);
         setView(false);
         setShow(false);
+        setAudio([]);
     }
 
     const getArtist = async (name) => {
@@ -108,6 +110,7 @@ const Artistname = () => {
           setPop(jsonData.popularity);
           setView(true);
           setShow(true);
+          setAudio(jsonData.audio_features);
         } catch (error) {
           console.error(error.message);
         }
@@ -171,7 +174,7 @@ const Artistname = () => {
                                     </div>
 
                                     <div className={!ttrack ? 'hidden':'h-full '}>
-                                        <Track tracks = {tracks} id={id}/>
+                                        <Track tracks = {tracks} audio_features = {audio_features} id={id}/>
                                     </div>
                                     <div className={!talbums ? 'hidden':'h-full '}>
                                         <Albums id={id} />
