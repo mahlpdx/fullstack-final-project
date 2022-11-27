@@ -10,6 +10,8 @@ const mysql = require("mysql");
 
 let artist = [''];
 let tracks = [''];
+let feature_ids = [];
+let track_features = {};
 
 artistRouter.get('/', async (req,res) => {
   try {
@@ -36,7 +38,6 @@ artistRouter.get('/', async (req,res) => {
         if (!error && response.statusCode === 200) {
           // Use the access token to access the Spotify Web API
           const token = body.access_token;
-          
           // GET request to get artist's metadata
           let options = {
             url: `https://api.spotify.com/v1/search?type=artist&q=${name}&limit=1`,
@@ -57,20 +58,40 @@ artistRouter.get('/', async (req,res) => {
               },
               json: true,
             };
-    
             request.get(options, (error, response, body) => {
-              tracks = body ; 
+              tracks = body ;
+              //Copying track id's for audio features:
+              console.log(body.tracks[0].id);
+              for (let index = 0; index < body.tracks.length; index++) {
+                let track_id = body.tracks[index].id;
+                feature_ids.push(track_id)
+              }
+              feature_ids.join(',');
+              //End of copy.
+              console.log(feature_ids);
               let ob = Object.assign(artist, tracks);
-              res.send(ob);    
-              //console.log(ob); 
+              res.send(ob);
+              
+              // GET request for top track audio features
+              let options = {
+                url: ` https://api.spotify.com/v1/audio-features?ids=${feature_ids}`,
+                headers: {
+                  Authorization: "Bearer " + token,
+                },
+              json: true,};
+              
+              request.get(options, (error, response, body) => {
+                console.log(body);
+              });
             });
           });
-
         }
         else {
           console.log('failed');    
         }
-      });
+      
+    //End of token
+    });
     }  
   } catch (err) {
     res.status(500).send(err.message);
