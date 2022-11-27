@@ -75,6 +75,7 @@ const Artistname = () => {
     const [artist, setArtist] = useState('');
     const [followers, setFollowers] = useState('');
     const [tracks, setTracks] = useState([]);
+    const [albums, setAlbums] = useState([]);
     const [genres, setGenres] = useState([]);
     const [pop, setPop] = useState([]);
     const [show, setShow] = useState(false);
@@ -85,6 +86,7 @@ const Artistname = () => {
         setArtist('');
         setFollowers('');
         setTracks([]);
+        setAlbums([]);
         setGenres([]);
         setView(false);
         setShow(false);
@@ -92,20 +94,38 @@ const Artistname = () => {
 
     const getArtist = async (name) => {
         try {
+          
+          // Artists
           const getuser = name ;
-          const response = await fetch(`http://localhost:8080/artist?name=${getuser}`, {
+          const artist_response = await fetch(`http://localhost:8080/artist?name=${getuser}`, {
             method: "GET"
           });
           
-          const jsonData = await response.json();
-          console.log(jsonData);
-          setID(jsonData.name);
-          setPic(jsonData.images[0].url);
-          setArtist(jsonData.name);
-          setFollowers(jsonData.followers.total);
-          setTracks(jsonData.tracks);
-          setGenres(jsonData.genres);
-          setPop(jsonData.popularity);
+          const artistData = await artist_response.json();
+          setID(artistData.id);
+          setPic(artistData.images[0].url);
+          setArtist(artistData.name);
+          setFollowers(artistData.followers.total);
+          setGenres(artistData.genres);
+          setPop(artistData.popularity);
+
+          // Tracks
+          const track_response = await fetch(`http://localhost:8080/top-tracks?id=${artistData.id}`, {
+            method: "GET"
+          }); 
+          const trackData = await track_response.json()
+          console.log(trackData)
+          setTracks(trackData.tracks);
+
+          // Albums
+          const album_response = await fetch(`http://localhost:8080/albums?id=${artistData.id}`, {
+            method: "GET"
+          }); 
+          const albumData = await album_response.json()
+          console.log(albumData)          
+
+          setAlbums(albumData.items);
+
           setView(true);
           setShow(true);
         } catch (error) {
@@ -174,7 +194,7 @@ const Artistname = () => {
                                         <Track tracks = {tracks} id={id}/>
                                     </div>
                                     <div className={!talbums ? 'hidden':'h-full '}>
-                                        <Albums id={id} />
+                                        <Albums albums={albums} id={id} />
                                     </div>
                                     <div className={!mpop ? 'hidden':'h-full w-full '}>
                                         <Genres genres={genres}/>

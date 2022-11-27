@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const artistRouter = require("./api/artist");
+const topTracksRouter = require("./api/top-tracks");
+const albumsRouter = require("./api/albums");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,5 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/artist/", artistRouter);
+app.use("/top-tracks/", topTracksRouter);
+app.use("/albums/", albumsRouter);
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
