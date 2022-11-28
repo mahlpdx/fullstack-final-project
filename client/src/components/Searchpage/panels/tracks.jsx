@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
-
+import StockChart from './chart/chart';
 
 function Track ({tracks}, id) {
     const [tc, setTc] = useState([]);
@@ -15,8 +15,13 @@ function Track ({tracks}, id) {
     const [duration_ms, setDuration_ms] = useState('');
     const [loudness, setLoudness] = useState('');
 
-
-
+    const [pop, setPop] = useState([]);
+    const datac = {
+        chartData: {
+          labels: ['1','2','3','4','5','6','7','8','9','10'],
+          data: pop,
+        },
+      };
 
     const padTo2Digits = (num)  => {
         return num.toString().padStart(2, '0');
@@ -29,8 +34,19 @@ function Track ({tracks}, id) {
         return seconds === 60
           ? `${minutes + 1}:00`
           : `${minutes}:${padTo2Digits(seconds)}`;
-    }
+    };
+
+    const data = (tracks) => {
+        let i = 0 ;
+        const arr = [];
+        for(i=0 ; i < 10 ; i++) {
+            arr.push(tracks[i].popularity);
+        }
+        setPop(arr);
+    };
+    
     const handleClick = (tracki) => (reason) => {
+        
         setSelected(tracki.id);
         setTc(tracki);
         setAcousticness(tracki.audio_features.acousticness);
@@ -40,7 +56,9 @@ function Track ({tracks}, id) {
         setDuration_ms(convertTime(tracki.audio_features.duration_ms));
         setLoudness(tracki.audio_features.loudness);
         setShow(true);
+        data(tracks);
     };
+    console.log(pop);
     const handleClick2 = (id) => (reason) => {
         if(id === 1){
             setM1(true);
@@ -58,7 +76,7 @@ function Track ({tracks}, id) {
     };
     return (
       <div>
-        <div className='flex flex-row items-center gap-4 w-full'>
+        <div className='flex flex-row items-center gap-4 w-full h-full'>
             <div className='flex flex-col items-start w- '>
                 <div className='text-xl font-geomatik text-zinc-200/70 mb-3 ml-4'>Top 10 Tracks: </div>
                 <ol className='h-[30rem] overflow-y-scroll scroll-smooth bg-zinc-900/50 rounded-3xl p-6 flex flex-col w-auto'>
@@ -80,7 +98,7 @@ function Track ({tracks}, id) {
                 </ol>
             </div>
             
-            <div className={!show ? 'hidden':'flex flex-col w-full '}>
+            <div className={!show ? 'hidden':'flex flex-col w-full h-full'}>
                 <div className='w-full flex flex-col items-center '>
                     <div className='flex flex-row items-center bg-zinc-900/80 px-3 font-geomatik py-2  rounded-full gap-3'>
                             <button onClick={handleClick2(1)} className={!m1 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out':
@@ -89,9 +107,14 @@ function Track ({tracks}, id) {
                             :'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Audio features</button>
                     </div>
                 </div>
-                <div className='h-[29rem] w-full mt-3  bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
-                        <div className={!m1 ? 'hidden':'flex flex-col items-start w-full'}>
+                <div className='h-[29rem] w-full mt-3 h-full  bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
+                        <div className={!m1 ? 'hidden':'flex h-full flex-col items-start w-full'}>
                             <div className='text-lg font-geomatik text-zinc-200/70 mb-3 ml-4'>{tc.name} Popularity</div>
+
+                            <StockChart info={datac} className='w-full h-full' />
+
+                           
+                            
                         </div>
                         <div className={!m2 ? 'hidden':'flex flex-col items-start w-full'}>
                             <div className='text-lg font-geomatik text-zinc-200/70 mb-3 ml-4'>{tc.name} Audio features</div>

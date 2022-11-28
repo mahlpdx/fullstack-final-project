@@ -190,7 +190,7 @@ const Artistname = () => {
                                     </div>
 
                                     <div className={!ttrack ? 'hidden':'h-full w-full '}>
-                                        <Track tracks = {tracks} id={id} className='w-full'/>
+                                        <Track tracks = {tracks} id={id} className='w-full h-full'/>
                                     </div>
                                     <div className={!talbums ? 'hidden':'h-full '}>
                                         <Albums albums={albums} id={id} />
