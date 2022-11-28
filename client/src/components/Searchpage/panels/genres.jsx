@@ -3,7 +3,7 @@ import React from 'react';
 
 
 function Genres ({genres}) {
-    let index = 1;
+    
 
     return (
       <div className='w-full'>
