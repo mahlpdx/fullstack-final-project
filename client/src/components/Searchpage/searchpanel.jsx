@@ -21,10 +21,8 @@ const Artistname = () => {
     const [m2, setM2] = useState(false);
     const [m3, setM3] = useState(false);
     // set data for search by artist name panal 
-
     
     const handleClick = (id) => (reason) => {
-        console.log(id);
         if(id === 1){
             handleClick1();
             setM1(true);
@@ -102,13 +100,14 @@ const Artistname = () => {
           });
           
           const artistData = await artist_response.json();
+          console.log(artistData);
           setID(artistData.id);
           setPic(artistData.images[0].url);
           setArtist(artistData.name);
           setFollowers(artistData.followers.total);
           setGenres(artistData.genres);
           setPop(artistData.popularity);
-
+          
           // Tracks
           const track_response = await fetch(`http://localhost:8080/top-tracks?id=${artistData.id}`, {
             method: "GET"
@@ -190,8 +189,8 @@ const Artistname = () => {
                                         </div>
                                     </div>
 
-                                    <div className={!ttrack ? 'hidden':'h-full '}>
-                                        <Track tracks = {tracks} id={id}/>
+                                    <div className={!ttrack ? 'hidden':'h-full w-full '}>
+                                        <Track tracks = {tracks} id={id} className='w-full h-full'/>
                                     </div>
                                     <div className={!talbums ? 'hidden':'h-full '}>
                                         <Albums albums={albums} id={id} />
