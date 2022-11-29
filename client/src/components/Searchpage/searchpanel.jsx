@@ -121,9 +121,19 @@ const Artistname = () => {
             method: "GET"
           }); 
           const albumData = await album_response.json()
-          console.log(albumData)          
 
-          setAlbums(albumData.items);
+          // De-duplicating album data
+          let unique_albums = []
+          let unique_names = new Set()
+          for  (let i = 0; i < albumData.items.length; i++) {
+            console.log(albumData.items[i])
+            if (!unique_names.has(albumData.items[i].name)) {
+                unique_albums.push(albumData.items[i])
+                unique_names.add(albumData.items[i].name)
+            } 
+          }
+
+          setAlbums(unique_albums);
 
           setView(true);
           setShow(true);
@@ -192,7 +202,7 @@ const Artistname = () => {
                                     <div className={!ttrack ? 'hidden':'h-full w-full '}>
                                         <Track tracks = {tracks} id={id} className='w-full h-full'/>
                                     </div>
-                                    <div className={!talbums ? 'hidden':'h-full '}>
+                                    <div className={!talbums ? 'hidden':'h-full w-full'}>
                                         <Albums albums={albums} id={id} />
                                     </div>
                                     <div className={!mpop ? 'hidden':'h-full w-full '}>
