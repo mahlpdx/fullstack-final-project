@@ -49,7 +49,6 @@ artistRouter.get("/", async (req, res) => {
 
             let ob = Object.assign(artist);
             res.send(ob);
-
           });
         } else {
           console.log("failed");
