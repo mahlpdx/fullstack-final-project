@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
+import SimpleBarChart from './chart/simplebarchart';
 import StockChart from './chart/linechart';
 
 function Track ({tracks}, id) {
@@ -8,20 +9,30 @@ function Track ({tracks}, id) {
     const [show, setShow] = useState(false);
     const [m1, setM1] = useState(true);
     const [m2, setM2] = useState(false);
+    const [m3, setM3] = useState(false);
     const [acousticness, setAcousticness] = useState('');
     const [energy, setEnergy] = useState('');
-    const [instrumentalness, setinstrumentalness] = useState('');
+    const [danceability, setDanceability] = useState('');
     const [liveness, setLiveness] = useState('');
     const [duration_ms, setDuration_ms] = useState('');
     const [loudness, setLoudness] = useState('');
 
     const [pop, setPop] = useState([]);
+    const [track_pop, settPop] = useState('');
+
     const datac = {
         chartData: {
           labels: ['1','2','3','4','5','6','7','8','9','10'],
           data: pop,
           xlabel: "Track ranking",
           ylabel: "Popularity [0 - 100]"
+        },
+      };
+
+    const datab = { 
+        bchartData: {
+          labels: ['Popularity','Acoustics','Energy','Liveness','Danceability'],
+          data: [track_pop, acousticness, energy, liveness, danceability],
         },
       };
 
@@ -46,6 +57,9 @@ function Track ({tracks}, id) {
         }
         setPop(arr);
     };
+
+
+
     
     const handleClick = (tracki) => (reason) => {
         
@@ -53,26 +67,41 @@ function Track ({tracks}, id) {
         setTc(tracki);
         setAcousticness(tracki.audio_features.acousticness);
         setEnergy(tracki.audio_features.energy);
-        setinstrumentalness(tracki.audio_features.instrumentalness);
+        setDanceability(tracki.audio_features.danceability);
         setLiveness(tracki.audio_features.liveness);
         setDuration_ms(convertTime(tracki.audio_features.duration_ms));
         setLoudness(tracki.audio_features.loudness);
         setShow(true);
         data(tracks);
+        settPop(tracki.popularity/100);
     };
-
+    
     const handleClick2 = (id) => (reason) => {
         if(id === 1){
             setM1(true);
             if(m2 === true) {
                 setM2(false);
             }
+            if(m3 === true) {
+                setM3(false);
+            }
         }
         else if(id === 2){
             setM2(true);
             if(m1 === true) {
-
                 setM1(false);
+            }
+            if(m3 === true) {
+                setM3(false);
+            }
+        }
+         else if(id === 3){
+            setM3(true);
+            if(m1 === true) {
+                setM1(false);
+            }
+            if(m2 === true) {
+                setM2(false);
             }
         }
     };
@@ -106,17 +135,17 @@ function Track ({tracks}, id) {
                             <button onClick={handleClick2(1)} className={!m1 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out':
                                 'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Relative Popularity</button>
                             <button onClick={handleClick2(2)} className={!m2 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out'
-                            :'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Audio features</button>
+                            :'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Audio Features</button>
+                            <button onClick={handleClick2(3)} className={!m3 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out'
+                            :'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Feature Graph</button>
                     </div>
                 </div>
                 <div className='h-[29rem] w-full mt-3 h-full  bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
                         <div className={!m1 ? 'hidden':'flex h-full flex-col items-start w-full'}>
                             <div className='text-lg font-geomatik text-zinc-200/70 mb-3 ml-4'>{tc.name} Popularity</div>
-
-                            <StockChart info={datac} className='w-full h-full' />
-
-                           
-                            
+                                
+                            <StockChart info={datac} className='w-full h-full' /> 
+                                
                         </div>
                         <div className={!m2 ? 'hidden':'flex flex-col items-start w-full'}>
                             <div className='text-lg font-geomatik text-zinc-200/70 mb-3 ml-4'>{tc.name} Audio features</div>
@@ -130,8 +159,8 @@ function Track ({tracks}, id) {
                                     <div className='text-4xl text-cyan-600'>{energy}</div>
                                 </div>
                                 <div className='bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
-                                    <div className='text-zinc-200/40'>instrumentalness</div>
-                                    <div className='text-4xl text-gray-600'>{instrumentalness}</div>
+                                    <div className='text-zinc-200/40'>danceability</div>
+                                    <div className='text-4xl text-gray-600'>{danceability}</div>
                                 </div>
                                 <div className='bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
                                     <div className='text-zinc-200/40'>liveness</div>
@@ -147,6 +176,11 @@ function Track ({tracks}, id) {
                                     <div className='text-4xl text-green-600'>{loudness}</div>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div className={!m3 ? 'hidden':'flex h-full flex-col items-start w-full'}>
+                            <div className='text-lg font-geomatik text-zinc-200/70 mb-3 ml-4'>{tc.name} Feature Graph</div>
+                                <SimpleBarChart info={datab} className='w-full h-full' />
                         </div>
                 </div>
 

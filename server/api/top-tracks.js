@@ -65,7 +65,7 @@ topTracksRouter.get("/", async (req, res) => {
                 //Adding the audio_features object to top tracks//
                 for(let index = 0; index < track_array.length; index++){
                     if(track_array[index].id === body.audio_features[index].id){
-                        console.log("It works: " + index);
+                       
                         Object.assign(track_array[index], {audio_features : body.audio_features[index]});
                     }
                 }//End of Audio_features GET //

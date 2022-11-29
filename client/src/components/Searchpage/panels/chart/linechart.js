@@ -1,9 +1,11 @@
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
+import { Filler } from 'chart.js';
+
 
 import React from 'react';
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale);
+ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Filler);
 
 const buildData = ({ chartData }) => ({
     labels: chartData.labels,
