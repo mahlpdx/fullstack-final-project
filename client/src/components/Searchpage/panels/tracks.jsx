@@ -21,7 +21,7 @@ function Track ({tracks}, id) {
           labels: ['1','2','3','4','5','6','7','8','9','10'],
           data: pop,
           xlabel: "Track ranking",
-          ylabel: "Popularity (0 - 1)"
+          ylabel: "Popularity [0 - 100]"
         },
       };
 
