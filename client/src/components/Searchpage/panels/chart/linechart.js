@@ -24,13 +24,34 @@ const buildData = ({ chartData }) => ({
 }
 );
 
-const options = {
+const buildOptions = ({chartData}) => ({
     plugins: {
         legend: {
             display: false,
         }
     },
     scales: {
+        x: {
+            display: true,
+            title: {
+                display: true,
+                text: chartData.xlabel,
+                color: "rgba(255, 255, 255, 0.6)",
+                font: {
+                    size: 16,
+                }
+            }
+        },
+        y: {
+            title: {
+                color: "rgba(255, 255, 255, 0.6)",
+                display: true,
+                text: chartData.ylabel,
+                font: {
+                    size: 16,
+                }
+            }
+        },
         yAxes: {
             ticks: {
                 color: 'rgba(255, 255, 255, 1)'
@@ -58,11 +79,12 @@ const options = {
             right: 10,
         },
     },
-};
+});
 
 
 const StockChart = ({ info }) => {
     const data = buildData(info);
+    const options = buildOptions(info);
     console.log(data);
     return (
         <>

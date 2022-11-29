@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, {useState} from 'react';
-import StockChart from './chart/chart';
 import SimpleBarChart from './chart/simplebarchart';
+import StockChart from './chart/linechart';
 
 function Track ({tracks}, id) {
     const [tc, setTc] = useState([]);
@@ -24,6 +24,8 @@ function Track ({tracks}, id) {
         chartData: {
           labels: ['1','2','3','4','5','6','7','8','9','10'],
           data: pop,
+          xlabel: "Track ranking",
+          ylabel: "Popularity [0 - 100]"
         },
       };
 
@@ -131,7 +133,7 @@ function Track ({tracks}, id) {
                 <div className='w-full flex flex-col items-center '>
                     <div className='flex flex-row items-center bg-zinc-900/80 px-3 font-geomatik py-2  rounded-full gap-3'>
                             <button onClick={handleClick2(1)} className={!m1 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out':
-                                'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Popularity</button>
+                                'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Relative Popularity</button>
                             <button onClick={handleClick2(2)} className={!m2 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out'
                             :'text-sm px-3 py-1 bg-pink-600 text-pink-200 rounded-3xl border-2 border-pink-600'}>Audio Features</button>
                             <button onClick={handleClick2(3)} className={!m3 ? ' text-sm px-3 py-1 text-zinc-400 rounded-3xl border-2 border-zinc-400 hover:text-zinc-100 hover:bg-zinc-400  transition duration-300 ease-in-out'

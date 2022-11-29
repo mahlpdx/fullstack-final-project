@@ -1,7 +1,47 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
+import StockChart from './chart/barchart';
 
 function Albums ({albums}, id) {
+
+    const releaseDateData = (albums) => {
+        let release_years = []
+        let counts = {}
+        // Create yearly release date visualization
+        for (let i = 0; i < albums.length; i++) {
+            //console.log(albums[i].release_date.split("-")[0])
+            release_years.push(albums[i].release_date.split("-")[0]);
+        }
+
+        console.log(release_years)
+        for (let i = 0; i < release_years.length; i++) {
+            //console.log(release_years[i])
+            counts[release_years[i]] = counts[release_years[i]] ? counts[release_years[i]] + 1 : 1;
+        }
+        //console.log(counts)
+    
+        return counts
+    }
+    
+    let data = releaseDateData(albums);
+    console.log(data)
+    let x_data = []
+    let y_data = []
+    
+    for (const year in data) {
+        x_data.push(year)
+        y_data.push(data[year])
+    }
+
+    const datac = {
+        chartData: {
+          labels: x_data,
+          data: y_data,
+          xlabel: "Year",
+          ylabel: "# of Releases"
+        },
+    };
+
   return (
     <div>
       <div className='flex flex-row items-center gap-4'>
@@ -26,12 +66,12 @@ function Albums ({albums}, id) {
           </div>
           
           <div>
-              <div className='text-xl font-geomatik text-zinc-200/70 mb-3 ml-4 '>Album visualization: </div>
+              <div className='text-xl font-geomatik text-zinc-200/70 mb-3 ml-4 '>Album Release History</div>
               <div className='h-[30rem]  bg-zinc-900/50 rounded-3xl p-6 flex flex-col items-start'>
-              
+                <StockChart info={datac} className='w-full h-full' />
               </div>
 
-
+ 
           </div>
       </div>
 
