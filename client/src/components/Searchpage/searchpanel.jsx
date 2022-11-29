@@ -189,13 +189,13 @@ const Artistname = () => {
                                         </div>
                                     </div>
 
-                                    <div className={!ttrack ? 'hidden':'h-full w-full '}>
+                                    <div className={!m1 ? 'hidden':'h-full w-full '}>
                                         <Track tracks = {tracks} id={id} className='w-full h-full'/>
                                     </div>
-                                    <div className={!talbums ? 'hidden':'h-full '}>
+                                    <div className={!m2 ? 'hidden':'h-full '}>
                                         <Albums albums={albums} id={id} />
                                     </div>
-                                    <div className={!mpop ? 'hidden':'h-full w-full '}>
+                                    <div className={!m3 ? 'hidden':'h-full w-full '}>
                                         <Genres genres={genres}/>
                                     </div>
                                 </div>
