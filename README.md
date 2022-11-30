@@ -31,7 +31,7 @@ In the top tracks panel, the artist's top 10 tracks will be displayed. The user 
 
 In the albums panel, all of the artist's US albums releases (LPs, EPs, and singles) are shown. There is a visualization that is always visible and shows the number of releases from the artist per year, starting from the year of their first release to present day. 
 
-<br><br>
+<br>
 In the genre panel, all of the known genre's associated with the artist are listed. For more information on a specific genre, the user can click on the genre name, and will be linked to an associated wikipedia article.
 
 
