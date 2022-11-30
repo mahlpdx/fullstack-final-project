@@ -251,7 +251,7 @@ const Artistname = () => {
                       : "px-5 py-1 bg-indigo-600 text-indigo-200 rounded-3xl border-2 border-indigo-600"
                   }
                 >
-                  Top Albums
+                  Albums
                 </button>
                 <button
                   onClick={handleClick(3)}

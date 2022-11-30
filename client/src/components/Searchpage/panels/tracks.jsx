@@ -30,10 +30,10 @@ function Track({ tracks }, id) {
   };
 
   const datab = {
-    bchartData: {
-      labels: ["Popularity", "Acoustics", "Energy", "Liveness", "Danceability"],
+    chartData: {
+      labels: ["Popularity", "Acousticness", "Energy", "Liveness", "Danceability"],
       data: [track_pop, acousticness, energy, liveness, danceability],
-      title: "Features",
+      title: "Audio Features",
     },
   };
 
